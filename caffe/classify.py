@@ -64,11 +64,11 @@ def predict(data, n_preds=6, display_output=True):
     return prob
 
 #MAGIC
-imagepath = '/images/test.jpg'
+#imagepath = '/images/test.jpg'
+imagepath = raw_input('Full Path to image to classify > ')
 cat_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
 #prints the info (image type (3 = RGB), pixels x pixels)
 print cat_data.shape
-
 
 net.blobs['data'].data[...] = cat_data
 out = net.forward()

@@ -13,11 +13,7 @@ import sys
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
-try:
-    labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
-except:
-    !/opt/caffe/data/ilsvrc12/get_ilsvrc_aux.sh
-    labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
+labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
 # Set Caffe to CPU mode because who even knows how to set up a GPU (not me)
 caffe.set_mode_cpu()
 def load_model():

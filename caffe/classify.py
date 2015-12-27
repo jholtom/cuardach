@@ -4,8 +4,6 @@ import tempfile
 import os
 caffe_root = '/opt/caffe/'
 import numpy as np
-import pandas as pd
-pd.set_option('display.mpl_style', 'default')
 
 caffe_root = '/opt/caffe/'
 

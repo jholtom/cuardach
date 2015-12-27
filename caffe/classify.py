@@ -4,16 +4,15 @@ import tempfile
 import os
 caffe_root = '/opt/caffe/'
 import numpy as np
-
 caffe_root = '/opt/caffe/'
-
 import sys
 sys.path.insert(0, caffe_root + 'python')
-
 import caffe
+imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
 labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
 # Set Caffe to CPU mode because who even knows how to set up a GPU (not me)
 caffe.set_mode_cpu()
+
 def load_model():
     BATCH_SIZE = 1
     net = caffe.Net('/opt/caffe/models/bvlc_googlenet/deploy.prototxt',
@@ -27,6 +26,7 @@ def load_model():
     net.blobs['prob'].reshape(BATCH_SIZE, )
     net.reshape() 
     return net
+
 net = load_model()
 # Caffe comes with a handy transformer pipeline so that
 # we can make our images into the format it needs! Yay!

@@ -1,6 +1,6 @@
 from classify import *
 from fs_watch import *
-import add_to_index
+from add_to_index import *
 from ConfigParser import SafeConfigParser
 
 #Load config
@@ -27,4 +27,4 @@ for i in d:
     m = {}
     m['type'] = i
     m['predict'] = d[i] 
-    add_document(m)
+    add_document(es, m)

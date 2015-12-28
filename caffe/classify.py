@@ -1,5 +1,4 @@
 import shutil
-import requests
 import tempfile
 import os
 caffe_root = '/opt/caffe/'
@@ -10,7 +9,6 @@ sys.path.insert(0, caffe_root + 'python')
 import caffe
 imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
 labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
-# Set Caffe to CPU mode because who even knows how to set up a GPU (not me)
 caffe.set_mode_cpu()
 
 def load_model():
@@ -28,8 +26,6 @@ def load_model():
     return net
 
 net = load_model()
-# Caffe comes with a handy transformer pipeline so that
-# we can make our images into the format it needs! Yay!
 transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
 transformer.set_transpose('data', (2,0,1))
 transformer.set_raw_scale('data', 255)  # the reference model operates on images in [0,255] range instead of [0,1]
@@ -67,12 +63,12 @@ def predict(data, n_preds=6, display_output=True):
 #imagepath = '/images/test.jpg'
 imagepath = raw_input('Full Path to image to classify > ')
 cat_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
-#prints the info (image type (3 = RGB), pixels x pixels)
-print cat_data.shape
 
 net.blobs['data'].data[...] = cat_data
 out = net.forward()
 pred_class = out['prob'][0].argmax()
-print("Predicted class is #{}.".format(pred_class))
+#print("Predicted class is #{}.".format(pred_class))
 
-print labels[pred_class]
+#print labels[pred_class]
+
+predict(cat_data)

@@ -6,6 +6,8 @@ caffe_root = '/opt/caffe/'
 import sys
 sys.path.insert(0, caffe_root + 'python')
 import caffe
+imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
+labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
 
 def load_model():
     BATCH_SIZE = 1

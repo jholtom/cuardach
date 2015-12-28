@@ -41,37 +41,26 @@ def get_label_name(num):
     options[0] = ' '.join(options[0].split(' ')[1:])
     return ','.join(options[:2])
     
-def predict(data, n_preds=6, display_output=True):
+def predict(data, n_preds=6):
     net.blobs['data'].data[...] = data
-    if display_output:
-        display(data)
     prob = net.forward()['prob']
     probs = prob[0]
     prediction = probs.argmax()
     top_k = probs.argsort()[::-1]
     for pred in top_k[:n_preds]:
         percent = round(probs[pred] * 100, 2)
-        # display it compactly if we're displaying more than the top prediction
         pred_formatted = "%03d" % pred
         if n_preds == 1:
             format_string = "label: {cls} ({label})\ncertainty: {certainty}%"
         else:
             format_string = "label: {cls} ({label}), certainty: {certainty}%"
-        if display_output:
-            print format_string.format(
-                cls=pred_formatted, label=get_label_name(pred), certainty=percent)
+        print format_string.format(
+            cls=pred_formatted, label=get_label_name(pred), certainty=percent)
     return prob
 
 #MAGIC
 #imagepath = '/images/test.jpg'
 imagepath = raw_input('Full Path to image to classify > ')
 cat_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
-
-net.blobs['data'].data[...] = cat_data
-out = net.forward()
-pred_class = out['prob'][0].argmax()
-#print("Predicted class is #{}.".format(pred_class))
-
-#print labels[pred_class]
 
 predict(cat_data)

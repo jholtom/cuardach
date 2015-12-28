@@ -53,7 +53,7 @@ def start_network():
     transformer.set_raw_scale('data', 255)  # the reference model operates on images in [0,255] range instead of [0,1]
     transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
 
-def produce_data(imagepath):
+def produce_data(imagepath,transformer):
     image_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
     x = predict(image_data)
     return x

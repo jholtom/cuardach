@@ -32,6 +32,9 @@ transformer.set_raw_scale('data', 255)  # the reference model operates on images
 transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
 
 #FUNCTIONS
+def display(data):
+    print transformer.deprocess('data', data)
+
 def get_label_name(num):
     options = labels[num].split(',')
     # remove the tag

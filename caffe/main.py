@@ -1,3 +1,4 @@
+#Also powers up image recognizer
 from classify import *
 from fs_watch import *
 from add_to_index import * 
@@ -13,7 +14,7 @@ port = parser.get('elasticsearch', 'port')
 es = Elasticsearch([{'host': host, 'port': port}])
 
 #Power up image recongizer
-start_network()
+#start_network()
 
 #Get Images from fs_watcher
 #
@@ -23,4 +24,4 @@ start_network()
 imagepath = raw_input("Full Path to image > ")
 
 #Get something to look at
-print produce_data(imagepath,transformer)
+print produce_data(imagepath)

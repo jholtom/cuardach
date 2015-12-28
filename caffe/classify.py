@@ -14,6 +14,7 @@ def load_model():
                     caffe.TEST)
     # change batch size to 1 for faster processing
     # this just means that we're only processing one image at a time instead of like 50
+    # At scale, it may make more sense to do more simultaneously as # of cores increases
     shape = list(net.blobs['data'].data.shape)
     shape[0] = BATCH_SIZE
     net.blobs['data'].reshape(*shape)
@@ -53,7 +54,7 @@ def start_network():
     transformer.set_raw_scale('data', 255)  # the reference model operates on images in [0,255] range instead of [0,1]
     transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
 
-def produce_data(imagepath,transformer):
+def produce_data(imagepath):
     image_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
-    x = predict(image_data)
-    return x
+    return predict(image_data)
+start_network()

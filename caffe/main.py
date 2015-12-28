@@ -22,5 +22,9 @@ net, transformer = start_network()
 # Temporary testing
 imagepath = raw_input("Full Path to image > ")
 
-#Get something to look at
-print produce_data(imagepath,net,transformer)
+d = produce_data(imagepath,net,transformer)
+for i in d:
+    m = {}
+    m['type'] = i
+    m['predict'] = d[i] 
+    add_document(m)

@@ -26,5 +26,6 @@ d = produce_data(imagepath,net,transformer)
 for i in d:
     m = {}
     m['type'] = i
-    m['predict'] = d[i] 
+    m['predict'] = d[i]
+    m['path'] = imagepath
     add_document(es, m)

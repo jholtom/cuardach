@@ -31,7 +31,7 @@ def get_label_name(num):
     options[0] = ' '.join(options[0].split(' ')[1:])
     return ','.join(options[:2])
     
-def predict(data, n_preds=3):
+def predict(data, n_preds=3,net):
     net.blobs['data'].data[...] = data
     prob = net.forward()['prob']
     probs = prob[0]
@@ -52,6 +52,6 @@ def start_network():
     transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
     return (net, transformer)
 
-def produce_data(imagepath,transformer):
+def produce_data(imagepath,net,transformer,npreds):
     image_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
-    return predict(image_data)
+    return predict(image_data,npreds,net)

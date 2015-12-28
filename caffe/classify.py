@@ -31,7 +31,7 @@ def get_label_name(num):
     options[0] = ' '.join(options[0].split(' ')[1:])
     return ','.join(options[:2])
     
-def predict(data, n_preds=3,net):
+def predict(data, net, n_preds=3):
     net.blobs['data'].data[...] = data
     prob = net.forward()['prob']
     probs = prob[0]

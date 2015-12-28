@@ -1,6 +1,6 @@
 from classify import *
 from fs_watch import *
-from add_to_index import * 
+import add_to_index
 from ConfigParser import SafeConfigParser
 
 #Load config

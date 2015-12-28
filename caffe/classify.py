@@ -1,7 +1,6 @@
 import shutil
 import tempfile
 import os
-caffe_root = '/opt/caffe/'
 import numpy as np
 caffe_root = '/opt/caffe/'
 import sys
@@ -31,22 +30,17 @@ def get_label_name(num):
     options[0] = ' '.join(options[0].split(' ')[1:])
     return ','.join(options[:2])
     
-def predict(data, n_preds=6):
+def predict(data, n_preds=3):
     net.blobs['data'].data[...] = data
     prob = net.forward()['prob']
     probs = prob[0]
     prediction = probs.argmax()
     top_k = probs.argsort()[::-1]
+    targ = {}
     for pred in top_k[:n_preds]:
         percent = round(probs[pred] * 100, 2)
-        pred_formatted = "%03d" % pred
-        if n_preds == 1:
-            format_string = "label: {cls} ({label})\ncertainty: {certainty}%"
-        else:
-            format_string = "label: {cls} ({label}), certainty: {certainty}%"
-        print format_string.format(
-            cls=pred_formatted, label=get_label_name(pred), certainty=percent)
-    return prob
+        targ[pred] = {"labels": get_label_name(pred), "certainty": percent}
+    return targ
 
 def start_network():
     imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'

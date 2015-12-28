@@ -61,6 +61,6 @@ def predict(data, n_preds=6):
 #MAGIC
 #imagepath = '/images/test.jpg'
 imagepath = raw_input('Full Path to image to classify > ')
-cat_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
+image_data = transformer.preprocess('data', caffe.io.load_image(imagepath))
 
-predict(cat_data)
+predict(image_data)

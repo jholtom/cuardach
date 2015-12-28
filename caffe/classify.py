@@ -7,9 +7,6 @@ caffe_root = '/opt/caffe/'
 import sys
 sys.path.insert(0, caffe_root + 'python')
 import caffe
-imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
-labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
-caffe.set_mode_cpu()
 
 def load_model():
     BATCH_SIZE = 1
@@ -25,13 +22,6 @@ def load_model():
     net.reshape() 
     return net
 
-net = load_model()
-transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
-transformer.set_transpose('data', (2,0,1))
-transformer.set_raw_scale('data', 255)  # the reference model operates on images in [0,255] range instead of [0,1]
-transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
-
-#FUNCTIONS
 def display(data):
     print transformer.deprocess('data', data)
 
@@ -57,6 +47,17 @@ def predict(data, n_preds=6):
         print format_string.format(
             cls=pred_formatted, label=get_label_name(pred), certainty=percent)
     return prob
+
+#Execution
+imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
+labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
+caffe.set_mode_cpu()
+
+net = load_model()
+transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
+transformer.set_transpose('data', (2,0,1))
+transformer.set_raw_scale('data', 255)  # the reference model operates on images in [0,255] range instead of [0,1]
+transformer.set_channel_swap('data', (2,1,0))  # the reference model has channels in BGR order instead of RGB
 
 #MAGIC
 #imagepath = '/images/test.jpg'

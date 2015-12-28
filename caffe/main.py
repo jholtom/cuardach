@@ -27,4 +27,4 @@ net, transformer = start_network()
 imagepath = raw_input("Full Path to image > ")
 
 #Get something to look at
-print produce_data(imagepath,net,transformer,3)
+print produce_data(imagepath,net,transformer)

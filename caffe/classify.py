@@ -38,7 +38,7 @@ def predict(data, net, n_preds=3):
     prob = net.forward()['prob']
     probs = prob[0]
     prediction = probs.argmax()
-    top_k = probs.argsort()[::-1]
+    wtop_k = probs.argsort()[::-1]
     targ = {}
     for pred in top_k[:n_preds]:
         percent = round(probs[pred] * 100, 2)

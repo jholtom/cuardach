@@ -6,25 +6,10 @@ from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
 
 def all_files(directory):
+    x = []
     for path, dirs, files in os.walk(directory):
         for f in files:
-            yield os.path.join(path, f)
-
-def is_image(f):
-    if f.endswith('.JPG'):
-	return True
-    if f.endswith('.jpg'):
-	return True
-    if f.endswith('.JPEG'):
-	return True
-    if f.endswith('.jpeg'):
-	return True
-    if f.endswith('.png'):
-	return True
-    if f.endswith('.PNG'):
-	return True
-    else:
-	return False
+            x.append(os.path.join(path, f))
 
 def find_images():
     image_files = [f for f in all_files(your_directory) if is_image(f)]

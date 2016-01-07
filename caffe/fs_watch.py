@@ -17,7 +17,7 @@ def is_image(path):
         return True
     return False
 
-def find_images():
+def find_images(your_directory):
     image_files = [f for f in all_files(your_directory) if is_image(f)]
     return image_files
 

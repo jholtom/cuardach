@@ -11,9 +11,10 @@ def all_files(directory):
     for path, dirs, files in os.walk(directory):
         for f in files:
             x.append(os.path.join(path, f))
+    return x
 
 def is_image(path):
-    if "image" in magic.from_file(path, mime=True):
+    if 'image' in magic.from_file(path, mime=True):
         return True
     return False
 

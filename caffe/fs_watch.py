@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import logging
+import magic
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
 
@@ -10,6 +11,11 @@ def all_files(directory):
     for path, dirs, files in os.walk(directory):
         for f in files:
             x.append(os.path.join(path, f))
+
+def is_image(path):
+    if "image" in magic.from_file(path, mime=True):
+        return True
+    return False
 
 def find_images():
     image_files = [f for f in all_files(your_directory) if is_image(f)]

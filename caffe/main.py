@@ -17,15 +17,12 @@ net, transformer = start_network()
 
 #Get Images from fs_watcher
 #
-#
-#
-# Temporary testing
-imagepath = raw_input("Full Path to image > ")
-
-d = produce_data(imagepath,net,transformer)
-for i in d:
-    m = {}
-    m['type'] = i
-    m['predict'] = d[i]
-    m['path'] = imagepath
-    add_document(es, m)
+imagedir = raw_input("Full Path to directory of images > ")
+for k in find_images(imagedir): 
+    d = produce_data(k,net,transformer)
+    for i in d:
+        m = {}
+        m['type'] = i
+        m['predict'] = d[i]
+        m['path'] = imagepath
+        add_document(es, m)

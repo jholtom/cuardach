@@ -1,6 +1,7 @@
 from classify import *
 from fs_watch import *
 from add_to_index import *
+import json
 from ConfigParser import SafeConfigParser
 
 #Load config
@@ -16,9 +17,16 @@ es = Elasticsearch([{'host': host, 'port': port}])
 net, transformer = start_network()
 
 #Get Images from fs_watcher
-#
-imagedir = raw_input("Full Path to directory of images > ")
-for k in find_images(imagedir): 
+# This should eventually collect images and be a daemon, but hell, not yet
+# 
+# 
+# 
+# This works if you don't already have a list
+#imagedir = raw_input("Full Path to directory of images > ")
+#imglist = find_images(imagedir)
+imagetxt = raw_input("Path to file with json list of directories >")
+imglist = json.load(open(imagetxt,'r').read())
+for k in imglist: 
     d = produce_data(k,net,transformer)
     for i in d:
         m = {}

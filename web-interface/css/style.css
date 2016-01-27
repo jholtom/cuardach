@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+	text-align: center;
+	background-color: #efefef;
+	font-family: Open Sans, sans-serif;
+}
+
+h1 {
+	font-weight: bold;
+}
+
+input[type="text"] {
+	width: 75%;
+	height: 30px;
+	font-size: 25px;
+	padding: 10px;
+	border: none;
+	border-bottom: solid 2px #c9c9c9;
+	border-radius: 5px;
+	
+	font-family: inherit;
+	font-style: italic;
+	color: #777777;
+}
+
+p#no-images {
+	color: #777777;
+	font-style: italic;
+}
+
+
+img {
+	display: inline-block;
+	background-color: #ffffff;
+	padding: 10px;
+	max-height: 300px;
+	max-width: 300px;
+	margin: 10px;
+	
+	transition: transform 0.25s;
+}
+
+img:hover {
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+}

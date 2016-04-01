@@ -10,7 +10,7 @@ imagenet_labels_filename = caffe_root + '/data/ilsvrc12/synset_words.txt'
 labels = np.loadtxt(imagenet_labels_filename, str, delimiter='\t')
 
 def load_model():
-    BATCH_SIZE = 1
+    BATCH_SIZE = 12
     net = caffe.Net('/opt/caffe/models/bvlc_googlenet/deploy.prototxt',
                     '/models/bvlc_googlenet.caffemodel',
                     caffe.TEST)
